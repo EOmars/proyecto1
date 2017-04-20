@@ -6,7 +6,7 @@
 
 
 <statements> : <statement>
-	|	<statement> "\n" <statements>
+	|	<statement> ";" <statements>
 
 
 <statement> : <if_statement>
@@ -21,23 +21,23 @@
 <assignnment_statement> : <identifier> "->" <expr>;
 
 
-<condition> : <expr> <relop> <expr>
+<condition> : <arit_expr> <relop> <arit_expr>
 
 
 <relop> : "<"
 	| 	">"
 
 
-<expr> : <expr> <binOp> <expr>
-	| <value>
+<arit_expr> : <expr>
 
-<binOp> : "+"
-	| 	"-"
-	| 	"*"
-	| 	"/"
+<expr> : <factor>
+	| <expr> <add_sub> <expr>
 
-<value> : <number>
-	| 	<identifier>
+<factor> : <term>
+	| <factor> <mut_div> <term>
+
+<term> : <number>
+	| 	<(> <expr> <)>
 
 <identifier> : <letter>
 	| 	<identifier> <letter>
