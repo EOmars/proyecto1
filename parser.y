@@ -3,6 +3,7 @@
 #include <stdio.h>
 %}
 
+%token OPEN_PARENTHESIS CLOSE_PARENTHESIS
 %token NUMBER
 %token ADD SUB MUL DIV ABS
 %token EOL
@@ -26,6 +27,7 @@ factor: term
 
 term: NUMBER
 	| ABS term { $$ = $2 >= 0? $2 : - $2 ;}
+	| OPEN_PARENTHESIS exp CLOSE_PARENTHESIS { $$ = $2;}
 	;
 
 %%
