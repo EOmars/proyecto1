@@ -4,16 +4,16 @@
 %}
 
 %token NUMBER
-%token ADD SUB MUL DIV 
+%token ADD SUB MUL DIV LEFT_ROUND_BRACKET RIGHT_ROUND_BRACKET
 %token EOL
-%start calclist
+%start aritmExpr
 
 %%
 
-aritmExp: exp EOL { printf("= %d\n", $2); }
+aritmExpr: expr EOL { printf("= %d\n", $2); }
 	;
 
-exp: term expr1 
+expr: term expr1 
 	;
 
 expr1:
