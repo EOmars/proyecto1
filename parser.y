@@ -4,30 +4,34 @@
 %}
 
 %token NUMBER
-%token ADD SUB MUL DIV ABS
+%token ADD SUB MUL DIV 
 %token EOL
 %start calclist
 
 %%
 
-calclist: 
-	| calclist exp EOL { printf("= %d\n", $2); }
+aritmExp: exp EOL { printf("= %d\n", $2); }
 	;
 
-exp: factor 
-	| exp ADD factor { $$ = $1 + $3; }
-	| exp SUB factor { $$ = $1 - $3; }
+exp: term expr1 
 	;
 
-factor: term 
-	| factor MUL term { $$ = $1 * $3; }
-	| factor DIV term { $$ = $1 / $3; }
+expr1:
+	| ADD term expr1 { $$ = $1 + $3; }
+	| SUB term expr1 { $$ = $1 - $3; }
 	;
 
-term: NUMBER
-	| ABS term { $$ = $2 >= 0? $2 : - $2 ;}
+term: factor term1
 	;
 
+term1: 
+	| MUL factor term1 { $$ = $1 * $3; }
+	| DIV factor term1 { $$ = $1 / $3; }
+	;
+
+factor: LEFT_ROUND_BRACKET expr RIGHT_ROUND_BRACKET
+	| NUMBER
+	;
 %%
 
 main(int argc, char **argv)

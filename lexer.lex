@@ -7,10 +7,10 @@
 "-" { return SUB; }
 "*" { return MUL; }
 "/" { return DIV; }
-"|" { return ABS; }
+"(" { return LEFT_ROUND_BRACKET; }
+")" { return RIGHT_ROUND_BRACKET; }
 [0-9]+ { yylval = atoi(yytext); return NUMBER; }
 \n { return EOL; }
 [ \t] { }
-. { printf("Sweet Jesus! I've found a mystery character %c\n",*yytext); }
+. { printf("Sweet Jesus! I've found a mistery character %c\n",*yytext); }
 %%
-
