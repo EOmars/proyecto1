@@ -1,0 +1,53 @@
+
+:<| Gramática par el lenguaje "pakaBelial" :<| 
+ 
+
+<pakaBelial> : begin <statements> end
+
+
+<statements> : <statement>
+	|	<statement> "\n" <statements>
+
+
+<statement> : <if_statement>
+	|	<assignment_statement>
+	| 	<pakaBelial>
+
+
+<if_statement> : if <condition> then <statement> 
+	| 	if <condition> then <statement> else <statement>
+
+
+<assignnment_statement> : <identifier> "->" <expr>;
+
+
+<condition> : <expr> <relop> <expr>
+
+
+<relop> : "<"
+	| 	">"
+
+
+<expr> : <expr> <binOp> <expr>
+	| <value>
+
+<binOp> : "+"
+	| 	"-"
+	| 	"*"
+	| 	"/"
+
+<value> : <number>
+	| 	<identifier>
+
+<identifier> : <letter>
+	| 	<identifier> <letter>
+	| 	<identifier> <digit>
+
+<number> : <digit>
+	| 	<number> <digit>
+
+<digit> : [0-9]
+
+<letter> : [a-zA-Z]
+
+

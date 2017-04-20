@@ -4,3 +4,4 @@
 !lexer.lex
 !parser.y
 !makefile
+!GRAMMAR
