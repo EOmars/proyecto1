@@ -5,3 +5,9 @@
 !parser.y
 !makefile
 !GRAMMAR
+
+# 2nd version of parser with ast building
+!calc.lex
+!astHeader.h
+!ast.c
+!calcParser.y
