@@ -14,7 +14,12 @@
 %token EOL
 %token EXIT
 
-%type <a> exp factor term
+/* precedencia explícita */
+%left '+' '-'
+%left '*' '/'
+%nonassoc '|' UMINUS
+
+%type <a> exp
 
 %%
 calclist:
@@ -26,20 +31,14 @@ calclist:
 	| calclist EOL { printf("> "); }
 	| calclist EXIT { printf("bye ;)\n"); exit(0);}
 
-exp: factor
-	| exp '+' factor { $$ = newAst('+', $1,$3); }
-	| exp '-' factor { $$ = newAst('-', $1,$3); }
-	;
-
-factor: term
-	| factor '*' term { $$ = newAst('*', $1,$3); }
-	| factor '/' term { $$ = newAst('/', $1,$3); }
-	;
-
-term: NUMBER { $$ = newNum($1); }
-	| '|' term { $$ = newAst('|', $2, NULL); }
-	| '(' exp ')' { $$ = $2; }
-	| '-' term { $$ = newAst('M', $2, NULL); }
+exp: 	exp '+' exp 	{ $$ = newAst('+', $1,$3); }
+	|	exp '-' exp 	{ $$ = newAst('-', $1,$3); }
+	|	exp '*' exp 	{ $$ = newAst('*', $1,$3); }
+	|	exp '/' exp 	{ $$ = newAst('/', $1,$3); }
+	|	'|' exp 		{ $$ = newAst('|', $2, NULL); }
+	|	'(' exp ')' 	{ $$ = $2; }
+	| 	'-' exp			{ $$ = newAst('M', $2, NULL); }
+	|	NUMBER 			{ $$ = newNum($1); }
 	;
 %%
 
