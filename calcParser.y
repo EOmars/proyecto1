@@ -30,6 +30,7 @@ calclist:
 		}
 	| calclist EOL { printf("> "); }
 	| calclist EXIT { printf("bye ;)\n"); exit(0);}
+	;
 
 exp: 	exp '+' exp 	{ $$ = newAst('+', $1,$3); }
 	|	exp '-' exp 	{ $$ = newAst('-', $1,$3); }
@@ -37,7 +38,7 @@ exp: 	exp '+' exp 	{ $$ = newAst('+', $1,$3); }
 	|	exp '/' exp 	{ $$ = newAst('/', $1,$3); }
 	|	'|' exp 		{ $$ = newAst('|', $2, NULL); }
 	|	'(' exp ')' 	{ $$ = $2; }
-	| 	'-' exp			{ $$ = newAst('M', $2, NULL); }
+	| 	'-' exp %prec 	UMINUS{ $$ = newAst('M', $2, NULL); }
 	|	NUMBER 			{ $$ = newNum($1); }
 	;
 %%

@@ -1,9 +1,9 @@
 
 
-proyecto: calc.lex calcParser.y astHeader.h
-	bison -d calcParser.y
-	flex  calc.lex
-	gcc -o $@ calcParser.tab.c lex.yy.c ast.c
+proyecto: lexer.lex parser.y proyecto1.h
+	bison -d parser.y
+	flex  lexer.lex
+	gcc -o $@ parser.tab.c lex.yy.c proyecto1.c
 
 clean: 
-	rm calcParser.tab.c calcParser.tab.h lex.yy.c proyecto
+	rm  *.tab.h *.tab.c lex.yy.c proyecto

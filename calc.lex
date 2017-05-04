@@ -1,4 +1,3 @@
-
 %option noyywrap nodefault yylineno
 %{
 #include "astHeader.h"
