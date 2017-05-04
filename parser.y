@@ -34,7 +34,6 @@
 %type <sl> symlist
 
 %start pakaBelial
-
 %%
 
 pakaBelial: 
@@ -52,6 +51,7 @@ pakaBelial:
 stmt: IF exp THEN stmt_list					{ $$ = newflow('I',$2,$4,NULL); }
 	| IF exp THEN stmt_list ELSE stmt_list	{ $$ = newflow('I',$2,$4,$6); }
 	| WHILE exp DO stmt_list 				{ $$ = newflow('W',$2,$4,NULL); }
+	| exp
 	;
 
 stmt_list: /* vacio */ { $$ = NULL; }
